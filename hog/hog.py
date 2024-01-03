@@ -16,12 +16,20 @@ def roll_dice(num_rolls, dice=six_sided):
 
     num_rolls:  The number of dice rolls that will be made.
     dice:       A function that simulates a single dice roll outcome.
+    total:  the points the player get in his turn
     """
     # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    total=0
+    for i in num_rolls:
+        if dice!=1:
+            total=1
+            break
+        else:
+            total+=dice
+    return total
     # END PROBLEM 1
 
 
@@ -30,10 +38,16 @@ def boar_brawl(player_score, opponent_score):
 
     player_score:     The total score of the current player.
     opponent_score:   The total score of the other player.
-
+    new-score: the player's score after this section
     """
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    ones=player_score%10
+    if opponent_score<10:
+        tens=0
+    else:
+        tens=opponent_score//10%10
+    
+
     # END PROBLEM 2
 
 
