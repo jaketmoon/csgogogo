@@ -24,11 +24,11 @@ def roll_dice(num_rolls, dice=six_sided):
     # BEGIN PROBLEM 1
     total=0
     for i in num_rolls:
-        if dice!=1:
+        if dice()!=1:
             total=1
             break
         else:
-            total+=dice
+            total+=dice()
     return total
     # END PROBLEM 1
 
@@ -162,6 +162,7 @@ def play(strategy0, strategy1, update,
             update(strategy0(score0,score1),score0,score1,dice)
         else:
             update(strategy1(score1,score0),score1,score0,dice)
+        n+=1    
     # END PROBLEM 5
     return score0, score1
 
@@ -186,7 +187,9 @@ def always_roll(n):
     """
     assert n >= 0 and n <= 10
     # BEGIN PROBLEM 6
-    return n
+    def func(x,y):
+        return n
+    return func            
     # END PROBLEM 6
 
 
@@ -217,7 +220,7 @@ def is_always_roll(strategy, goal=GOAL):
     False
     """
     # BEGIN PROBLEM 7
-    if type(strategy)==int:
+    if strategy(0,1)==strategy(1,0):
         return True
     else:
         return False
@@ -236,7 +239,12 @@ def make_averaged(original_function, samples_count=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    
+    def func(*args):
+        sum=0
+        for i in range(samples_count):
+            sum += original_function(*args)
+        return sum/samples_count
+    return func 
     # END PROBLEM 8
 
 
@@ -250,7 +258,14 @@ def max_scoring_num_rolls(dice=six_sided, samples_count=1000):
     1
     """
     # BEGIN PROBLEM 9
-    
+    max=0
+    for i in range(1,11):
+        m=make_averaged(roll_dice)
+        if max<m:
+            max=m
+            maxi=i
+    return maxi
+            
     # END PROBLEM 9
 
 
